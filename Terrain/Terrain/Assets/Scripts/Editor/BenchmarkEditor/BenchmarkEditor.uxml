@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+>
+ 
+  <editor:PropertyField name ="Result" binding-path="m_Result" label ="Result"/>
+  
+  <editor:ObjectField name ="PerlinBenchmark" binding-path="m_BenchmarkDataPerlin" label="Perlin Data"/>
+  <editor:ObjectField name ="PerlinByteBenchmark" binding-path="m_BenchmarkDataPerlinByte" label="Perlin Byte Data"/>
+  <editor:ObjectField name ="SimplexBenchmark" binding-path="m_BenchmarkDataSimplex" label="Simplex Data"/>
+  <editor:ObjectField name ="TextureGenerator" binding-path="m_Generator" label="Texture Generator"/>
+  
+  <engine:Toggle name ="BenchPerlin" binding-path="m_BenchmarkPerlin" label="Benchmark Perlin"/>
+  <engine:Toggle name ="BenchSimplex" binding-path="m_BenchmarkSimplex" label="Benchmark Simplex"/>
+  <editor:Vector2Field name ="Dimension" binding-path="m_Dimension" label="Dimension"/>
+
+  <engine:Button name="NoiseButton" text ="BenchmarkNoise"/>
+  <engine:Button name ="TextureButton" text ="BenchmarkTexture"/>
+  
+  
+</engine:UXML>

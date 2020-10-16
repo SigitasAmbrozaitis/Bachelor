@@ -1,0 +1,470 @@
+--- d:\programming\latex\noise\perlinvs\perlin\perlin\simplex.cpp --------------
+#include "pch.h"
+#include "Simplex.h"
+#include <cmath>
+
+namespace 
+{
+	const static int T[] = { 0x15,0x38,0x32,0x2c,0x0d,0x13,0x07,0x2a };
+	static int i, j, k, A[3];
+	static double u, v, w;
+};
+
+
+
+Simplex::Simplex()
+{
+	i = j = k = 0;
+	u = v = w = 0;
+	A[0] = 0;
+	A[1] = 0;
+	A[2] = 0;
+}
+
+Simplex::~Simplex()
+{
+}
+
+double Simplex::noise(double x, double y, double z) //73+ 6/ 29- 28* 100>> 104& 52<< 52|| 54?
+{
+00EC13A0  push        ebp  
+00EC13A1  mov         ebp,esp  
+00EC13A3  and         esp,0FFFFFFC0h  
+00EC13A6  sub         esp,34h  
+	//midle point between points
+	double s = (x + y + z) / 3; //2+ 1/
+00EC13A9  movsd       xmm0,mmword ptr [x]  
+00EC13AE  addsd       xmm0,mmword ptr [y]  
+00EC13B3  push        ebx  
+00EC13B4  push        esi  
+00EC13B5  push        edi  
+	//double s = (x + y + z) * 0.33333f;
+
+	
+	//new coordinate middle point + current point
+	i = (int)std::floor(x + s); //1+
+00EC13B6  sub         esp,8  
+00EC13B9  addsd       xmm0,mmword ptr [z]  
+00EC13BE  divsd       xmm0,mmword ptr [__real@4008000000000000 (0EC31A0h)]  
+00EC13C6  movsd       mmword ptr [esp+38h],xmm0  
+00EC13CC  addsd       xmm0,mmword ptr [x]  
+00EC13D1  movsd       mmword ptr [esp+40h],xmm0  
+00EC13D7  fld         qword ptr [esp+40h]  
+00EC13DB  fstp        qword ptr [esp]  
+00EC13DE  call        _floor (0EC299Dh)  
+	j = (int)std::floor(y + s); //1+
+00EC13E3  movsd       xmm0,mmword ptr [esp+38h]  
+00EC13E9  addsd       xmm0,mmword ptr [y]  
+00EC13EE  fstp        qword ptr [esp+40h]  
+00EC13F2  cvttsd2si   edi,mmword ptr [esp+40h]  
+00EC13F8  movsd       mmword ptr [esp+40h],xmm0  
+00EC13FE  fld         qword ptr [esp+40h]  
+00EC1402  fstp        qword ptr [esp]  
+00EC1405  mov         dword ptr [i (0EC4418h)],edi  
+00EC140B  call        _floor (0EC299Dh)  
+	k = (int)std::floor(z + s); //1+
+00EC1410  movsd       xmm0,mmword ptr [esp+38h]  
+00EC1416  addsd       xmm0,mmword ptr [z]  
+00EC141B  fstp        qword ptr [esp+40h]  
+00EC141F  cvttsd2si   esi,mmword ptr [esp+40h]  
+00EC1425  movsd       mmword ptr [esp+40h],xmm0  
+	k = (int)std::floor(z + s); //1+
+00EC142B  fld         qword ptr [esp+40h]  
+00EC142F  fstp        qword ptr [esp]  
+00EC1432  mov         dword ptr [j (0EC441Ch)],esi  
+00EC1438  call        _floor (0EC299Dh)  
+00EC143D  fstp        qword ptr [esp+40h]  
+00EC1441  cvttsd2si   ecx,mmword ptr [esp+40h]  
+00EC1447  add         esp,8  
+
+	//new middle point between new coodrinates
+	s = (i + j + k) / 6.; //2+ 1/
+	//s = (i + j + k) * 0.16666f; //2+ 1/
+
+	//again new coodinates
+	u = x - i + s; //1+ 1-
+	v = y - j + s; //1+ 1-
+	w = z - k + s; //1+ 1-
+
+
+	A[0] = A[1] = A[2] = 0;
+00EC144A  mov         dword ptr ds:[0EC442Ch],0  
+00EC1454  mov         dword ptr ds:[0EC4428h],0  
+00EC145E  mov         dword ptr [A (0EC4424h)],0  
+00EC1468  movsd       xmm3,mmword ptr [x]  
+00EC146D  movsd       xmm2,mmword ptr [y]  
+00EC1472  movsd       xmm4,mmword ptr [z]  
+00EC1477  movd        xmm0,edi  
+00EC147B  lea         eax,[ecx+esi]  
+00EC147E  mov         dword ptr [k (0EC4420h)],ecx  
+00EC1484  add         eax,edi  
+00EC1486  cvtdq2pd    xmm0,xmm0  
+00EC148A  movd        xmm1,eax  
+
+	int hi = u >= w ? u >= v ? 0 : 1 : v >= w ? 1 : 2; //3?
+00EC148E  xor         eax,eax  
+00EC1490  cvtdq2pd    xmm1,xmm1  
+00EC1494  subsd       xmm3,xmm0  
+00EC1498  movd        xmm0,esi  
+00EC149C  divsd       xmm1,mmword ptr [__real@4018000000000000 (0EC31A8h)]  
+00EC14A4  cvtdq2pd    xmm0,xmm0  
+00EC14A8  addsd       xmm3,xmm1  
+00EC14AC  subsd       xmm2,xmm0  
+00EC14B0  movd        xmm0,ecx  
+00EC14B4  cvtdq2pd    xmm0,xmm0  
+00EC14B8  addsd       xmm2,xmm1  
+00EC14BC  movsd       mmword ptr [u (0EC4430h)],xmm3  
+00EC14C4  subsd       xmm4,xmm0  
+00EC14C8  movsd       mmword ptr [v (0EC4438h)],xmm2  
+00EC14D0  addsd       xmm4,xmm1  
+00EC14D4  comisd      xmm3,xmm4  
+00EC14D8  movsd       mmword ptr [w (0EC4440h)],xmm4  
+00EC14E0  jb          Simplex::noise+14Bh (0EC14EBh)  
+00EC14E2  comisd      xmm3,xmm2  
+00EC14E6  setb        al  
+00EC14E9  jmp         Simplex::noise+153h (0EC14F3h)  
+00EC14EB  comisd      xmm2,xmm4  
+00EC14EF  setb        al  
+00EC14F2  inc         eax  
+	int lo = u < w ? u < v ? 0 : 1 : v < w ? 1 : 2;    //3?
+00EC14F3  xor         ebx,ebx  
+00EC14F5  mov         dword ptr [esp+30h],eax  
+00EC14F9  comisd      xmm4,xmm3  
+00EC14FD  jbe         Simplex::noise+168h (0EC1508h)  
+00EC14FF  comisd      xmm2,xmm3  
+00EC1503  setbe       bl  
+00EC1506  jmp         Simplex::noise+170h (0EC1510h)  
+00EC1508  comisd      xmm4,xmm2  
+00EC150C  setbe       bl  
+00EC150F  inc         ebx  
+	return K(hi) + K(3 - hi - lo) + K(lo) + K(0);	   //63+ 4/ 26- 28* 100>> 104& 52<< 52| 48? 
+00EC1510  mov         ecx,3  
+00EC1515  sub         ecx,ebx  
+00EC1517  sub         ecx,eax  
+00EC1519  call        Simplex::K (0EC1560h)  
+00EC151E  mov         ecx,dword ptr [esp+30h]  
+00EC1522  movaps      xmm7,xmm0  
+00EC1525  call        Simplex::K (0EC1560h)  
+00EC152A  mov         ecx,ebx  
+00EC152C  addsd       xmm7,xmm0  
+00EC1530  call        Simplex::K (0EC1560h)  
+00EC1535  movaps      xmm6,xmm0  
+00EC1538  xor         ecx,ecx  
+00EC153A  addsd       xmm6,xmm7  
+00EC153E  call        Simplex::K (0EC1560h)  
+00EC1543  addsd       xmm0,xmm6  
+}
+00EC1547  pop         edi  
+00EC1548  pop         esi  
+00EC1549  pop         ebx  
+00EC154A  movsd       mmword ptr [esp+2Ch],xmm0  
+00EC1550  fld         qword ptr [esp+2Ch]  
+00EC1554  mov         esp,ebp  
+00EC1556  pop         ebp  
+00EC1557  ret  
+--- No source file -------------------------------------------------------------
+00EC1558  int         3  
+00EC1559  int         3  
+00EC155A  int         3  
+00EC155B  int         3  
+00EC155C  int         3  
+00EC155D  int         3  
+00EC155E  int         3  
+00EC155F  int         3  
+--- d:\programming\latex\noise\perlinvs\perlin\perlin\simplex.cpp --------------
+
+double Simplex::K(int a)//15+ 1/ 6- 7* 25>> 26& 14<< 14| 12?
+{
+00EC1560  push        ebx  
+00EC1561  mov         ebx,esp  
+00EC1563  sub         esp,8  
+00EC1566  and         esp,0FFFFFFF8h  
+00EC1569  add         esp,4  
+00EC156C  push        ebp  
+00EC156D  mov         ebp,dword ptr [ebx+4]  
+00EC1570  mov         dword ptr [esp+4],ebp  
+00EC1574  mov         ebp,esp  
+00EC1576  sub         esp,18h  
+	double s;
+	s = (A[0] + A[1] + A[2]) / 6.;//2+ 1/
+00EC1579  mov         edx,dword ptr ds:[0EC442Ch]  
+00EC157F  push        esi  
+00EC1580  mov         esi,dword ptr ds:[0EC4428h]  
+00EC1586  push        edi  
+00EC1587  mov         edi,dword ptr [A (0EC4424h)]  
+	//s = (A[0] + A[1] + A[2]) * 0.16666f;//2+ 1/
+
+	double x = u - A[0] + s;//1+ 1-
+00EC158D  movsd       xmm4,mmword ptr [u (0EC4430h)]  
+	double y = v - A[1] + s;//1+ 1-
+00EC1595  movsd       xmm5,mmword ptr [v (0EC4438h)]  
+	double z = w - A[2] + s;//1+ 1-
+00EC159D  movsd       xmm2,mmword ptr [w (0EC4440h)]  
+00EC15A5  lea         eax,[edx+edi]  
+00EC15A8  movd        xmm0,edi  
+00EC15AC  add         eax,esi  
+	double t = .6 - x * x - y * y - z * z;//3* 3-
+00EC15AE  movsd       xmm3,mmword ptr [__real@3fe3333333333333 (0EC3190h)]  
+00EC15B6  cvtdq2pd    xmm0,xmm0  
+00EC15BA  mov         dword ptr [ebp-18h],ecx  
+00EC15BD  movd        xmm1,eax  
+00EC15C1  cvtdq2pd    xmm1,xmm1  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC15C5  mov         eax,dword ptr [k (0EC4420h)]  
+00EC15CA  add         eax,edx  
+00EC15CC  mov         dword ptr [ebp-0Ch],eax  
+00EC15CF  mov         eax,dword ptr [i (0EC4418h)]  
+00EC15D4  add         eax,edi  
+00EC15D6  subsd       xmm4,xmm0  
+00EC15DA  mov         dword ptr [ebp-10h],eax  
+00EC15DD  divsd       xmm1,mmword ptr [__real@4018000000000000 (0EC31A8h)]  
+00EC15E5  mov         ecx,eax  
+00EC15E7  and         eax,20h  
+00EC15EA  sar         ecx,1  
+00EC15EC  mov         dword ptr [ebp-14h],ecx  
+00EC15EF  mov         ecx,dword ptr [ebp-0Ch]  
+00EC15F2  movd        xmm0,esi  
+	double y = v - A[1] + s;//1+ 1-
+00EC15F6  cvtdq2pd    xmm0,xmm0  
+	double y = v - A[1] + s;//1+ 1-
+00EC15FA  addsd       xmm4,xmm1  
+00EC15FE  subsd       xmm5,xmm0  
+00EC1602  movd        xmm0,edx  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC1606  mov         edx,dword ptr [j (0EC441Ch)]  
+00EC160C  add         edx,esi  
+00EC160E  mov         esi,ecx  
+00EC1610  mov         edi,edx  
+00EC1612  mov         dword ptr [ebp-8],edx  
+00EC1615  cvtdq2pd    xmm0,xmm0  
+00EC1619  and         ecx,20h  
+00EC161C  sar         edi,1  
+00EC161E  mov         edx,edi  
+00EC1620  sar         esi,1  
+00EC1622  and         edx,10h  
+00EC1625  or          edx,eax  
+00EC1627  mov         eax,dword ptr [ebp-8]  
+00EC162A  shr         edx,1  
+00EC162C  and         eax,40h  
+00EC162F  or          edx,ecx  
+	double y = v - A[1] + s;//1+ 1-
+00EC1631  addsd       xmm5,xmm1  
+	double z = w - A[2] + s;//1+ 1-
+00EC1635  subsd       xmm2,xmm0  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC1639  shr         edx,3  
+	double t = .6 - x * x - y * y - z * z;//3* 3-
+00EC163C  movaps      xmm0,xmm4  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC163F  mov         ecx,esi  
+00EC1641  and         ecx,20h  
+	double t = .6 - x * x - y * y - z * z;//3* 3-
+00EC1644  mulsd       xmm0,xmm4  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC1648  or          ecx,eax  
+00EC164A  mov         eax,dword ptr [ebp-10h]  
+00EC164D  shr         ecx,1  
+00EC164F  and         eax,40h  
+00EC1652  or          ecx,eax  
+	double z = w - A[2] + s;//1+ 1-
+00EC1654  addsd       xmm2,xmm1  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC1658  mov         eax,dword ptr T (0EC316Ch)[edx*4]  
+00EC165F  mov         edx,dword ptr [ebp-14h]  
+	double t = .6 - x * x - y * y - z * z;//3* 3-
+00EC1662  subsd       xmm3,xmm0  
+00EC1666  movaps      xmm0,xmm5  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC1669  shr         ecx,4  
+	double t = .6 - x * x - y * y - z * z;//3* 3-
+00EC166C  mulsd       xmm0,xmm5  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC1670  add         eax,dword ptr T (0EC316Ch)[ecx*4]  
+00EC1677  mov         ecx,edx  
+00EC1679  mov         dword ptr [ebp-4],eax  
+00EC167C  and         ecx,40h  
+00EC167F  mov         eax,dword ptr [ebp-0Ch]  
+	double t = .6 - x * x - y * y - z * z;//3* 3-
+00EC1682  subsd       xmm3,xmm0  
+00EC1686  movaps      xmm0,xmm2  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC1689  and         eax,80h  
+	double t = .6 - x * x - y * y - z * z;//3* 3-
+00EC168E  mulsd       xmm0,xmm2  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC1692  or          ecx,eax  
+00EC1694  shr         ecx,1  
+	double t = .6 - x * x - y * y - z * z;//3* 3-
+00EC1696  subsd       xmm3,xmm0  
+
+	int h = shuffle(i + A[0], j + A[1], k + A[2]);//21>> 21& 14<< 14| 7+
+00EC169A  mov         eax,dword ptr [ebp-8]  
+00EC169D  and         esi,4  
+00EC16A0  and         eax,80h  
+00EC16A5  and         edi,2  
+00EC16A8  or          ecx,eax  
+00EC16AA  xorps       xmm0,xmm0  
+00EC16AD  mov         eax,dword ptr [h]  
+00EC16B0  shr         ecx,5  
+00EC16B3  add         eax,dword ptr T (0EC316Ch)[ecx*4]  
+00EC16BA  mov         ecx,dword ptr [ebp-10h]  
+00EC16BD  mov         dword ptr [h],eax  
+00EC16C0  mov         eax,dword ptr [ebp-8]  
+00EC16C3  and         eax,8  
+00EC16C6  or          esi,eax  
+00EC16C8  mov         eax,ecx  
+00EC16CA  and         eax,8  
+00EC16CD  shr         esi,1  
+00EC16CF  or          esi,eax  
+00EC16D1  mov         eax,dword ptr [h]  
+00EC16D4  shr         esi,1  
+00EC16D6  add         eax,dword ptr T (0EC316Ch)[esi*4]  
+00EC16DD  mov         dword ptr [h],eax  
+00EC16E0  mov         eax,ecx  
+00EC16E2  mov         esi,dword ptr [ebp-8]  
+00EC16E5  and         eax,4  
+00EC16E8  or          edi,eax  
+00EC16EA  and         ecx,1  
+00EC16ED  mov         eax,dword ptr [ebp-0Ch]  
+00EC16F0  add         ecx,ecx  
+00EC16F2  and         eax,4  
+00EC16F5  shr         edi,1  
+00EC16F7  or          edi,eax  
+00EC16F9  mov         eax,dword ptr [h]  
+00EC16FC  add         eax,dword ptr T (0EC316Ch)[edi*4]  
+00EC1703  mov         edi,dword ptr [ebp-0Ch]  
+00EC1706  mov         dword ptr [h],eax  
+00EC1709  mov         eax,esi  
+00EC170B  and         eax,1  
+00EC170E  or          ecx,eax  
+00EC1710  mov         eax,edi  
+00EC1712  and         eax,1  
+00EC1715  add         ecx,ecx  
+00EC1717  or          ecx,eax  
+00EC1719  mov         eax,dword ptr [h]  
+00EC171C  add         eax,dword ptr T (0EC316Ch)[ecx*4]  
+00EC1723  mov         ecx,edx  
+00EC1725  mov         dword ptr [h],eax  
+00EC1728  and         ecx,8  
+00EC172B  mov         eax,edi  
+00EC172D  and         edx,1  
+00EC1730  and         eax,10h  
+00EC1733  and         edi,2  
+00EC1736  or          ecx,eax  
+00EC1738  mov         eax,esi  
+00EC173A  and         eax,10h  
+00EC173D  shr         ecx,1  
+00EC173F  and         esi,2  
+00EC1742  or          ecx,eax  
+00EC1744  mov         eax,dword ptr [h]  
+00EC1747  add         esi,esi  
+00EC1749  or          esi,edx  
+00EC174B  or          esi,edi  
+00EC174D  add         eax,dword ptr T (0EC316Ch)[ecx]  
+00EC1753  add         eax,dword ptr T (0EC316Ch)[esi*4]  
+00EC175A  mov         dword ptr [h],eax  
+	A[a]++;//1+
+00EC175D  mov         eax,dword ptr [a]  
+00EC1760  inc         dword ptr A (0EC4424h)[eax*4]  
+	if (t < 0)//1?
+00EC1767  comisd      xmm0,xmm3  
+00EC176B  ja          Simplex::K+2A3h (0EC1803h)  
+		return 0;
+
+	int b5 = h >> 5 & 1;  //1>> 1&
+00EC1771  mov         eax,dword ptr [h]  
+00EC1774  mov         ecx,eax  
+	int b4 = h >> 4 & 1;  //1>> 1&
+	int b3 = h >> 3 & 1;  //1>> 1&
+	int b2 = h >> 2 & 1;   //1>> 1&
+	int b = h & 3;      //1&
+00EC1776  mov         esi,dword ptr [h]  
+00EC1779  mov         edx,eax  
+00EC177B  sar         ecx,5  
+00EC177E  and         esi,3  
+00EC1781  sar         edx,4  
+00EC1784  and         ecx,1  
+00EC1787  sar         eax,3  
+00EC178A  and         edx,1  
+00EC178D  and         eax,1  
+
+	double p = b == 1 ? x : b == 2 ? y : z; //2?
+00EC1790  cmp         esi,1  
+00EC1793  jne         Simplex::K+23Dh (0EC179Dh)  
+00EC1795  movaps      xmm1,xmm4  
+	double q = b == 1 ? y : b == 2 ? z : x; //2?
+00EC1798  movaps      xmm0,xmm5  
+	double r = b == 1 ? z : b == 2 ? x : y; //2?
+00EC179B  jmp         Simplex::K+256h (0EC17B6h)  
+
+	double p = b == 1 ? x : b == 2 ? y : z; //2?
+00EC179D  cmp         esi,2  
+00EC17A0  jne         Simplex::K+24Dh (0EC17ADh)  
+	double q = b == 1 ? y : b == 2 ? z : x; //2?
+00EC17A2  movaps      xmm0,xmm2  
+00EC17A5  movaps      xmm1,xmm5  
+	double r = b == 1 ? z : b == 2 ? x : y; //2?
+00EC17A8  movaps      xmm2,xmm4  
+00EC17AB  jmp         Simplex::K+256h (0EC17B6h)  
+
+	double p = b == 1 ? x : b == 2 ? y : z; //2?
+00EC17AD  movaps      xmm1,xmm2  
+	double q = b == 1 ? y : b == 2 ? z : x; //2?
+00EC17B0  movaps      xmm0,xmm4  
+	double r = b == 1 ? z : b == 2 ? x : y; //2?
+00EC17B3  movaps      xmm2,xmm5  
+
+	p = (b5 == b3 ? -p : p); //1?
+00EC17B6  movsd       xmm4,mmword ptr [__xmm@80000000000000008000000000000000 (0EC31D0h)]  
+00EC17BE  cmp         ecx,eax  
+00EC17C0  jne         Simplex::K+265h (0EC17C5h)  
+00EC17C2  xorps       xmm1,xmm4  
+	q = (b5 == b4 ? -q : q); //1?
+00EC17C5  cmp         ecx,edx  
+00EC17C7  jne         Simplex::K+26Ch (0EC17CCh)  
+00EC17C9  xorps       xmm0,xmm4  
+	r = (b5 != (b4^b3) ? -r : r);//1? 1^
+00EC17CC  xor         eax,edx  
+00EC17CE  cmp         ecx,eax  
+00EC17D0  je          Simplex::K+275h (0EC17D5h)  
+00EC17D2  xorps       xmm2,xmm4  
+	t *= t;//1*
+00EC17D5  mulsd       xmm3,xmm3  
+
+	return 8 * t * t * (p + (b == 0 ? q + r : b2 == 0 ? q : r));//3* 2+ 2?
+00EC17D9  test        esi,esi  
+00EC17DB  jne         Simplex::K+283h (0EC17E3h)  
+00EC17DD  addsd       xmm2,xmm0  
+00EC17E1  jmp         Simplex::K+28Ch (0EC17ECh)  
+00EC17E3  test        byte ptr [h],4  
+00EC17E7  jne         Simplex::K+28Ch (0EC17ECh)  
+00EC17E9  movaps      xmm2,xmm0  
+00EC17EC  movaps      xmm0,xmm3  
+00EC17EF  addsd       xmm2,xmm1  
+00EC17F3  mulsd       xmm0,mmword ptr [__real@4020000000000000 (0EC31B0h)]  
+00EC17FB  mulsd       xmm0,xmm3  
+00EC17FF  mulsd       xmm0,xmm2  
+}
+00EC1803  pop         edi  
+00EC1804  pop         esi  
+00EC1805  mov         esp,ebp  
+00EC1807  pop         ebp  
+00EC1808  mov         esp,ebx  
+00EC180A  pop         ebx  
+00EC180B  ret  
+--- d:\agent\_work\3\s\src\vctools\crt\vcstartup\src\eh\i386\secchk.c ----------
+00EC180C  cmp         ecx,dword ptr [__security_cookie (0EC4004h)]  
+00EC1812  bnd jne     failure (0EC1817h)  
+00EC1815  bnd ret  
+00EC1817  bnd jmp     __report_gsfailure (0EC1AC7h)  
+--- d:\agent\_work\3\s\src\vctools\crt\vcstartup\src\heap\delete_scalar_size.cpp 

@@ -58,3 +58,28 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+*.aux
+*.bcf
+*.log
+*.bbl
+*.blg
+Bakalauras/Bakalauras.run.xml
+*.synctex(busy)
+*.tex
+*.toc
+*.gz
+PerlinVS/Perlin/Perlin/Debug/
+PerlinVS/Perlin/Perlin/Release/
+*.exe
+PerlinVS/Perlin/Release/Perlin.exe.lastcodeanalysissucceeded
+PerlinVS/Perlin/Release/
+PerlinVS/Perlin/Debug/
+Terrain/Terrain/Builds/
+Terrain/Terrain/DemoCPU/
+Terrain/Terrain/DemoGPU/MonoBleedingEdge/etc/mono/browscap.ini
+Terrain/Terrain/DemoGPU/
+Terrain/Terrain/Library/AnnotationManager
+Terrain/Terrain/Library/ArtifactDB
+Terrain/Terrain/Library/
+Terrain/Terrain/Temp/
+Terrain/Terrain/UIElementsSchema/

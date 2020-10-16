@@ -1,0 +1,10 @@
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.220.2248&rep=rep1&type=pdf		//perlin document
+https://mrl.nyu.edu/~perlin/doc/oscar.html#noise										//perlin implementation
+https://mrl.nyu.edu/~perlin/paper445.pdf												//simplex document
+https://mrl.nyu.edu/~perlin/noise/														//simplex implementation
+https://www.symbolab.com/																//calculator
+https://medium.com/100-days-of-algorithms/day-88-perlin-noise-96d23158a44c				//perlin explanation1
+https://thebookofshaders.com/11/														//perlin/simplex explanation2
+https://www.shadertoy.com/view/4dS3Wd													//value noise example
+https://www.agner.org/optimize/instruction_tables.pdf
+https://www.csee.umbc.edu/~olano/s2002c36/ch02.pdf

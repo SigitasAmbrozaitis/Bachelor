@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+>
+  <editor:ObjectField name = "PrefabField" binding-path = "m_ObjectPrefab" label = "Prefab:"/>
+  <editor:Vector3Field name = "VectorField" binding-path="m_Dimensions" label = "Dimensions:"/>
+  <editor:Vector3Field name = "SpeedField" binding-path = "m_DimensionSpeed" label ="Dimension Speed"/>
+  <editor:FloatField name = "RangeField" binding-path="m_Range" label = "Range:"/>
+  <engine:Button name = "GenerateButton" text = "Generate"/>
+  
+</engine:UXML>

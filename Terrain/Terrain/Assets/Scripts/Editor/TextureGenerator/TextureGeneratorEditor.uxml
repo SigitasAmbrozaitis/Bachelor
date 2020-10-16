@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
+>
+  <editor:ObjectField name = "ImageField" binding-path ="m_Image" label ="Image"/>
+  
+  <editor:Vector2Field name ="Dimension" binding-path="m_Dimension" label="Dimension"/>
+  <editor:Vector2Field name ="Step" binding-path="m_Step" label="Step"/>
+  <editor:Vector2Field name ="Speed" binding-path="m_Speed" label="Speed"/>
+  <editor:Vector2Field name ="Offset" binding-path="m_Offset" label="Offset"/>
+  
+  <editor:ColorField name ="Color" binding-path="m_DefaultColor" label ="Color"/>
+
+  <engine:Toggle name ="UsePerlin" binding-path="m_UsePerlin" label ="Use Perlin"/>
+  <engine:Toggle name="Alpha" binding-path="m_Alpha" label ="Alpha"/>
+  <engine:Toggle name="Red" binding-path="m_Red" label ="Red"/>
+  <engine:Toggle name="Green" binding-path="m_Green" label ="Green"/>
+  <engine:Toggle name="Blue" binding-path="m_Blue" label ="Blue"/>
+
+  <engine:TextField name ="ExportName" label = "Export Name"/>
+  <engine:Button name ="Export" text ="Export"/>
+  
+</engine:UXML>

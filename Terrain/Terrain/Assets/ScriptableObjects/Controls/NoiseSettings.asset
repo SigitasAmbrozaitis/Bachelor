@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc70e365b79881b44a7a4024c97040be, type: 3}
+  m_Name: NoiseSettings
+  m_EditorClassIdentifier: 
+  m_ColoringForStrength: 1
+  m_Damping: 0
+  m_Offset: {fileID: 11400000, guid: d198628eaa8fa85499be8ee4db0c2e22, type: 2}
+  m_Frequency: 3
+  m_Octaves: 3
+  m_Strength: 1.14
+  m_Lacunarity: 2.71
+  m_Persistence: 0.365
+  m_Amplitude: 0.89
+  m_DerivativeStrenght: 1.2
+  m_Gradient:
+    serializedVersion: 2
+    key0: {r: 0.09385012, g: 0.12746637, b: 0.3490566, a: 1}
+    key1: {r: 0.120043844, g: 0.38230628, b: 0.51135254, a: 1}
+    key2: {r: 0.1254902, g: 0.43529412, b: 0.54509807, a: 1}
+    key3: {r: 0.14751929, g: 0.41509432, b: 0.115521535, a: 0}
+    key4: {r: 0.5660378, g: 0.5386534, b: 0.17888929, a: 0}
+    key5: {r: 1, g: 1, b: 1, a: 0}
+    key6: {r: 0.7609469, g: 0.925739, b: 0.9433962, a: 0}
+    key7: {r: 0.7609469, g: 0.925739, b: 0.9433962, a: 0}
+    ctime0: 386
+    ctime1: 19853
+    ctime2: 23901
+    ctime3: 32382
+    ctime4: 38936
+    ctime5: 60524
+    ctime6: 65535
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 7
+    m_NumAlphaKeys: 2
